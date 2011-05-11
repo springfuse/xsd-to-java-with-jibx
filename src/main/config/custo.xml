@@ -1,0 +1,12 @@
+<custom require="all" name-style="hyphenated">
+<!--
+    <class name="com.jaxio.XSD" excludes="none"/>
+    <class name="com.jaxio.ComplexObject" includes="stringAttribute" requireds="stringAttribute"/>
+    <class name="com.jaxio.XSD" />
+    <class name="com.jaxio.ComplexObject" />
+    <class name="com.jaxio.SimpleObject" />
+-->    
+    <class name="com.jaxio.ComplexObject" optionals="myEnum">
+        <value attribute="myEnum" property-name="myEnum"/>
+    </class>
+</custom>

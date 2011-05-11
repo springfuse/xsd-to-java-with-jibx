@@ -1,0 +1,157 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.springfuse.blog</groupId>
+	<artifactId>jibx-java-to-xsd</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1</version>
+    <description>Shows how to generate xsd with annotation from java using jibx</description>
+    <url>http://www.springfuse.com</url>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>jibx.sf.net</id>
+			<name>JiBX repository</name>
+			<url>http://jibx.sf.net/maven2</url>
+		</pluginRepository>
+	</pluginRepositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jibx</groupId>
+			<artifactId>jibx-run</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.6</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<defaultGoal>process-classes</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>XSD creation without customization</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<java fork="true" failonerror="true"
+									classname="org.jibx.binding.generator.BindGen">
+									<classpath>
+										<path refid="maven.dependency.classpath" />
+										<path refid="maven.compile.classpath" />
+										<path refid="maven.runtime.classpath" />
+										<path refid="maven.test.classpath" />
+										<path refid="maven.plugin.classpath" />
+									</classpath>
+									<arg value="-t" />
+									<arg value="${project.build.directory}/jibx-no-customization" />
+									<arg value="-s" />
+									<arg value="${basedir}/src/main/java/" />
+									<arg value="com.jaxio.XSD" />
+								</java>
+							</tasks>
+						</configuration>
+					</execution>
+					<execution>
+						<id>XSD creation with customization</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<java fork="true" failonerror="true"
+									classname="org.jibx.binding.generator.BindGen">
+									<classpath>
+										<path refid="maven.dependency.classpath" />
+										<path refid="maven.compile.classpath" />
+										<path refid="maven.runtime.classpath" />
+										<path refid="maven.test.classpath" />
+										<path refid="maven.plugin.classpath" />
+									</classpath>
+									<arg value="-t" />
+									<arg value="${project.build.directory}/jibx" />
+									<arg value="-c" />
+									<arg value="${basedir}/src/main/config/custo.xml" />
+									<arg value="-s" />
+									<arg value="${basedir}/src/main/java/" />
+									<arg value="com.jaxio.XSD" />
+								</java>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>log4j</groupId>
+						<artifactId>log4j</artifactId>
+						<version>1.2.11</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jibx</groupId>
+						<artifactId>jibx-tools</artifactId>
+						<version>1.2.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jibx</groupId>
+						<artifactId>jibx-run</artifactId>
+						<version>1.2.1</version>
+					</dependency>
+					<dependency>
+						<groupId>org.jibx</groupId>
+						<artifactId>jibx-extras</artifactId>
+						<version>1.2.1</version>
+					</dependency>
+					<dependency>
+						<groupId>com.thoughtworks.qdox</groupId>
+						<artifactId>qdox</artifactId>
+						<version>1.10</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>org.jibx</groupId>
+				<artifactId>maven-jibx-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>bind</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<!--
+						work only with relative paths ${project.build.directory} would not
+						work :(
+					-->
+					<directory>target/jibx</directory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<compilerVersion>1.5</compilerVersion>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

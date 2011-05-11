@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<xsd xmlns="http://jaxio.com">
+    <complex-object myEnum="A" this-is-a-bool="true">
+        <string-attribute>expected</string-attribute>
+    </complex-object>
+</xsd>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<xsd xmlns="http://jaxio.com">
+	<complex-object myEnum="A" this-is-a-bool="true"
+		date-attribute="2009-10-01T20:24:39.296Z">
+		<string-attribute>expected</string-attribute>
+	</complex-object>
+	<simple-object simple-numeric="0">
+		<simple-string>string 0</simple-string>
+	</simple-object>
+	<simple-object simple-numeric="1">
+		<simple-string>string 1</simple-string>
+	</simple-object>
+	<simple-object simple-numeric="2">
+		<simple-string>string 2</simple-string>
+	</simple-object>
+	<simple-object simple-numeric="3">
+		<simple-string>string 3</simple-string>
+	</simple-object>
+	<simple-object simple-numeric="4">
+		<simple-string>string 4</simple-string>
+	</simple-object>
+</xsd>
